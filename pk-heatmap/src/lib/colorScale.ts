@@ -1,13 +1,15 @@
 /**
- * Competitive-intensity color ramp: green (low competition) -> yellow (moderate)
+ * Competitive-intensity color ramp: green (low competition) -> yellow -> orange
  * -> red (high competition), the standard RAG (red/amber/green) convention.
- * Stops match the design system's status palette so the map reads consistently
- * with any other status UI in the product.
+ * Four high-chroma stops (rather than a straight green-to-red blend) keep the
+ * mid-range readable as distinct yellow/orange bands instead of fading into a
+ * muddy brown, and read clearly against the dark map background.
  */
 const STOPS: { at: number; hex: string }[] = [
-  { at: 0, hex: "#0ca30c" }, // good / least competitive
-  { at: 50, hex: "#fab219" }, // warning / moderate
-  { at: 100, hex: "#d03b3b" }, // critical / most competitive
+  { at: 0, hex: "#12d97a" }, // vivid green / least competitive
+  { at: 35, hex: "#ffe000" }, // vivid yellow / mild competition
+  { at: 65, hex: "#ff8a00" }, // vivid orange / moderate-high
+  { at: 100, hex: "#ff2d2d" }, // vivid red / most competitive
 ];
 
 function hexToRgb(hex: string): [number, number, number] {

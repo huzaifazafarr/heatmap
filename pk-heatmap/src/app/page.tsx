@@ -38,27 +38,25 @@ export default function Home() {
 
   return (
     <main className="flex h-screen w-full flex-col bg-ink-950">
-      <header className="flex items-center justify-between border-b border-white/10 px-5 py-3.5">
-        <div>
-          <h1 className="text-base font-semibold text-slate-100">
-            Pakistan Market Competitiveness Heatmap
-          </h1>
-          <p className="text-xs text-slate-500">
-            Click a district for brands &amp; share · double-click for the 12-month trend
-          </p>
-        </div>
-        <div className="hidden sm:block">
-          <Legend />
-        </div>
+      <header className="border-b border-white/10 px-5 py-2.5">
+        <h1 className="text-base font-semibold text-slate-100">
+          Pakistan Market Competitiveness Heatmap
+        </h1>
+        <p className="text-xs text-slate-500">
+          Click a district for brands &amp; share · double-click for the 12-month trend
+        </p>
       </header>
 
-      <div className="flex min-h-0 flex-1 gap-4 p-4">
-        <div className="min-w-0 flex-1 rounded-xl border border-white/10 bg-[#0d1319]">
+      <div className="flex min-h-0 flex-1 gap-3 p-3">
+        <div className="relative min-w-0 flex-1 rounded-xl border border-white/10 bg-[#0d1319]">
           <PakistanMap
             selectedDistrictId={selected?.id ?? null}
             onSelectDistrict={handleSelectDistrict}
             onOpenTrend={handleOpenTrend}
           />
+          <div className="absolute bottom-3 left-3 z-10">
+            <Legend />
+          </div>
         </div>
 
         {selected && data && (
@@ -79,10 +77,6 @@ export default function Home() {
             />
           </div>
         )}
-      </div>
-
-      <div className="px-5 pb-3 sm:hidden">
-        <Legend />
       </div>
 
       {trendOpen && selected && data && (

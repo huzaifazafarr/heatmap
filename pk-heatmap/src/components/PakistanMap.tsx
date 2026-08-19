@@ -7,8 +7,11 @@ import { generateDistrictData } from "@/lib/mockData";
 import { useGeoData, type DistrictFeature, type ProvinceFeature } from "@/lib/useGeoData";
 import { PROVINCE_NAMES, type DistrictProperties } from "@/lib/types";
 
-const VIEW_W = 780;
-const VIEW_H = 920;
+// Matches Pakistan's actual lon/lat bounding-box aspect ratio (~1.28:1, wider
+// than tall) so the fitted map fills the viewBox with minimal internal
+// padding, instead of a portrait box that left large empty margins.
+const VIEW_W = 960;
+const VIEW_H = 750;
 const DOUBLE_CLICK_WINDOW_MS = 240;
 
 interface TooltipState {
