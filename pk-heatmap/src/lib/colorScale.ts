@@ -1,15 +1,17 @@
 /**
- * Competitive-intensity color ramp: green (low competition) -> yellow -> orange
- * -> red (high competition), the standard RAG (red/amber/green) convention.
- * Four high-chroma stops (rather than a straight green-to-red blend) keep the
- * mid-range readable as distinct yellow/orange bands instead of fading into a
- * muddy brown, and read clearly against the dark map background.
+ * Competitive-intensity color ramp: a sequential yellow -> orange -> red ->
+ * dark maroon scale, getting both more saturated AND darker as competitiveness
+ * rises. Encoding magnitude in lightness (not just hue) is what makes a
+ * heatmap actually read at a glance — two districts that are merely "orange"
+ * vs "red" are hard to rank by eye, but "bright yellow" vs "near-black red"
+ * are unmistakable even at a glance across the whole map.
  */
 const STOPS: { at: number; hex: string }[] = [
-  { at: 0, hex: "#12d97a" }, // vivid green / least competitive
-  { at: 35, hex: "#ffe000" }, // vivid yellow / mild competition
-  { at: 65, hex: "#ff8a00" }, // vivid orange / moderate-high
-  { at: 100, hex: "#ff2d2d" }, // vivid red / most competitive
+  { at: 0, hex: "#ffe600" }, // bright yellow / least competitive
+  { at: 25, hex: "#ffab00" }, // amber
+  { at: 50, hex: "#ff6600" }, // burnt orange
+  { at: 75, hex: "#cc1f1f" }, // strong red
+  { at: 100, hex: "#650000" }, // near-black dark red / most competitive
 ];
 
 function hexToRgb(hex: string): [number, number, number] {
