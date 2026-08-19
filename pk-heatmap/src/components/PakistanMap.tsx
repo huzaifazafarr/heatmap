@@ -1,6 +1,6 @@
 "use client";
 
-import { geoMercator, geoPath } from "d3-geo";
+import { geoIdentity, geoPath } from "d3-geo";
 import { useMemo, useRef, useState } from "react";
 import { competitivenessColor } from "@/lib/colorScale";
 import { generateDistrictData } from "@/lib/mockData";
@@ -43,7 +43,13 @@ export default function PakistanMap({
       type: "FeatureCollection" as const,
       features: districts as unknown as GeoJSON.Feature[],
     };
-    const projection = geoMercator().fitSize([VIEW_W, VIEW_H], fc as GeoJSON.FeatureCollection);
+    // geoIdentity (plain planar projection) is used instead of geoMercator: for
+    // this dataset, geoMercator's antimeridian-clipping stream misinterprets some
+    // districts' ring winding and injects a phantom full-canvas rectangle into
+    // their path. geoIdentity skips that spherical-clipping code path entirely,
+    // and at Pakistan's latitude range (~24-37N) the Mercator/equirectangular
+    // visual difference is negligible for a choropleth like this.
+    const projection = geoIdentity().reflectY(true).fitSize([VIEW_W, VIEW_H], fc as GeoJSON.FeatureCollection);
     const pathGen = geoPath(projection);
 
     const dPaths = (districts as DistrictFeature[]).map((f) => ({
