@@ -12,11 +12,17 @@ import type {
  * ---------------------------------------------------------------------------
  * SAMPLE / PLACEHOLDER DATA GENERATOR
  * ---------------------------------------------------------------------------
- * Everything in this file is illustrative mock data, deterministically derived
- * from the district id so the demo is stable across reloads without a backend.
- * It exists to prove out the map + drill-down UX end to end. Replace it with a
- * real data source before using this for actual market decisions — see
- * README.md "Wiring in real data" for the exact shape to produce instead.
+ * The market-share/competitiveness NUMBERS in this file are still illustrative
+ * mock data, deterministically derived from the district id so the demo is
+ * stable across reloads without a backend — no city-level breakdown exists in
+ * the source data yet, so per-district figures remain dummy. The BRAND names,
+ * variant/flavor names, and pack sizes below, however, are real: pulled from
+ * "Noodles EPOS 2026.xlsx" (Pakistan noodles-category retail audit data), so
+ * the category is now noodles-centric and the competitor set matches who
+ * actually sells noodles in this market. Replace the number-generating logic
+ * further down with a real data source before using this for actual market
+ * decisions — see README.md "Wiring in real data" for the exact shape to
+ * produce instead.
  * ---------------------------------------------------------------------------
  */
 
@@ -26,47 +32,51 @@ export interface BrandDef {
   color: string;
 }
 
-// Illustrative competitor set for Pakistan's packaged cooking / condiments
-// category (the same space as the Knorr EPOS analyses in this workspace).
-// Swap freely for whatever brand set your real data covers.
+// Real competitor set for Pakistan's packaged instant-noodles category,
+// ranked by actual sales value in "Noodles EPOS 2026.xlsx": Knorr is the
+// dominant player, followed by Shoop, Samyang, Indomie, and Kolson.
 export const BRANDS: BrandDef[] = [
   { id: "knorr", name: "Knorr", color: BRAND_PALETTE[0] },
-  { id: "maggi", name: "Maggi", color: BRAND_PALETTE[1] },
-  { id: "shan", name: "Shan", color: BRAND_PALETTE[2] },
-  { id: "national", name: "National", color: BRAND_PALETTE[3] },
-  { id: "mehran", name: "Mehran", color: BRAND_PALETTE[4] },
-  { id: "nestle", name: "Nestlé", color: BRAND_PALETTE[5] },
+  { id: "shoop", name: "Shoop", color: BRAND_PALETTE[1] },
+  { id: "samyang", name: "Samyang", color: BRAND_PALETTE[2] },
+  { id: "indomie", name: "Indomie", color: BRAND_PALETTE[3] },
+  { id: "kolson", name: "Kolson", color: BRAND_PALETTE[4] },
 ];
 
+// Real flavor/variant names drawn from actual item descriptions in the EPOS
+// data across these five brands (e.g. Knorr's "Blazin" line, Samyang's
+// Buldak/ramen range, Indomie's Chatkhara/Lemon Tarka, Kolson's Kai Ramen
+// imports and egg noodles).
 const VARIANT_POOL = [
-  "Chicken Stock Cubes",
-  "Beef Stock Cubes",
   "Chicken Noodles",
-  "Chatpata Masala Noodles",
-  "Recipe Mix - Karahi",
-  "Recipe Mix - Biryani",
-  "Recipe Mix - Qorma",
-  "Tomato Ketchup",
-  "Chili Garlic Sauce",
-  "Mayonnaise",
-  "White Sauce",
-  "Soy Sauce",
-  "Vinegar",
-  "Meat Masala",
-  "Chaat Masala",
-  "Cooking Yogurt Mix",
+  "Chatpata Noodles",
+  "Beef Noodles",
+  "Masala Noodles",
+  "Chicken Chatkhara Noodles",
+  "Lemon Tarka Noodles",
+  "Meat Masala Noodles",
+  "Hot & Sour Noodles",
+  "Egg Noodles",
+  "Fajita Noodles",
+  "Cheese Noodles",
+  "Buldak Hot Chicken Ramen",
+  "Cream Carbonara Ramen",
+  "Kimchi Ramen",
+  "Spicy Garlic Noodles",
+  "Blazin' 2X Spicy Noodles",
 ];
 
+// Real pack sizes/formats seen in the EPOS data for this category.
 const SKU_POOL = [
   "50g Sachet",
-  "100g Sachet",
-  "Twin Sachet Pack",
-  "200g Pouch",
-  "250g Jar",
-  "400g Pouch",
-  "500g Jar",
-  "1kg Family Jar",
-  "Catering Pack 5kg",
+  "65g Sachet",
+  "70g Sachet",
+  "72g Sachet",
+  "110g Pack",
+  "120g Pack",
+  "140g Cup Pack",
+  "227g Egg Noodles Pack",
+  "4 x 65g Family Pack",
 ];
 
 const MONTH_NAMES = [
